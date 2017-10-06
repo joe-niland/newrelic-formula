@@ -5,7 +5,7 @@ newrelic-sysmond:
     - reload: True
     - watch:
         - pkg: newrelic-sysmond
-        - file: /etc/newrelic/nrsysmond.cfg
+        - file: add_licence_key
 
 comment_default_licence_key:
   file.comment:
@@ -13,6 +13,8 @@ comment_default_licence_key:
     - regex: ^license_key=REPLACE_WITH_REAL_KEY
     - require:
         - pkg: newrelic-sysmond
+    - onlyif: |
+        cat /etc/newrelic/nrsysmond.cfg | grep ^license_key=REPLACE_WITH_REAL_KEY
 
 add_licence_key:
   file.blockreplace:
